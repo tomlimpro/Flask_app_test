@@ -1,0 +1,33 @@
+version: "3"
+services:
+  # Services pour l'application Flask
+  web:
+    # Construire une image pour le service web à partir du répertoire courant, où il trouvera le Dockerfile
+    build: .
+    #Mappe le port 5000 de l'hôte sur le port 5000 du conteneur
+    ports: 
+      - "5000:5000"
+    # Définit les variables d'environnement pour le conteneur. 
+    # Flask_APP à app.py point d'entrée de l'app Flask
+    environment:
+      - FLASK_APP=app.py
+    # Exécute la coamnde pour lancer l'app Flask 
+    command: ["flask", "run", "--host=0.0.0.0", "--reload"]
+    # Permet de monter des répertoires ou des fichiers de l'hôte dans le conteneur.
+    volumes:
+        - .:/app
+  mongo:
+    image: mongo
+    ports: 
+      - "27017:27017"
+    # Permet de monter un volument pour la bdd afin que les données ne soient pas perdus lorsque le conteneur est supprimé
+    volumes:
+      - mongo-data:/data/db
+volumes:
+  mongo-data:
+
+# mongo-data est le nom du volume défini pour stocker les données de la bdd.
+# On peut stocker les données en dehors du conteneurs, de sorte qu'elles ne soient pas supprimées lorsque les conteneurs sont supprimés. 
+# permet de conserver les données même si le conteneur ou l'image est mis à jour ou delete.
+
+# Le volume 'mongo-data' est monté dans le conteneur MongoDB à l'emplacement '/data/db' qui est l'emplacement où mongodb stocke les données par défaut. 
