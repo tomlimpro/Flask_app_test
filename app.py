@@ -7,8 +7,8 @@ os.environ['FLASK_ENV'] = 'development'
 @app.route('/')
 
 @app.route('/home')
-def index():
-    return render_template('index.html')
+def home_page():
+    return render_template('home.html')
 
 @app.route('/market')
 def market_page():
