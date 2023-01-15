@@ -5,8 +5,20 @@ app = Flask(__name__)
 os.environ['FLASK_ENV'] = 'development'
 
 @app.route('/')
+
+@app.route('/home')
 def index():
     return render_template('index.html')
+
+@app.route('/market')
+def market_page():
+    items = [
+        {'id': 1,'name':'Phone', 'barcode': '35445231','price': 500},
+        {'id': 2,'name':'Laptop', 'barcode': '85421221','price': 900},
+        {'id': 3,'name':'Keyboard', 'barcode': '92541371','price': 150},
+        {'id': 4,'name':'Mouse', 'barcode': '56541271','price': 50},
+    ]
+    return render_template('market.html', items=items)
 
 
 """
