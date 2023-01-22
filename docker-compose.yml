@@ -16,15 +16,18 @@ services:
     # Permet de monter des répertoires ou des fichiers de l'hôte dans le conteneur.
     volumes:
         - .:/app
-  mongo:
-    image: mongo
-    ports: 
-      - "27017:27017"
-    # Permet de monter un volument pour la bdd afin que les données ne soient pas perdus lorsque le conteneur est supprimé
+  db:
+    image: postgres:13.1-alpine
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORd: password
+      POSTGRES_DB: mydb
+    ports:
+      - "5432:5432"
     volumes:
-      - mongo-data:/data/db
+      - postgres-data:/var/lib/postgresql/data
 volumes:
-  mongo-data:
+  postgres-data:
 
 # mongo-data est le nom du volume défini pour stocker les données de la bdd.
 # On peut stocker les données en dehors du conteneurs, de sorte qu'elles ne soient pas supprimées lorsque les conteneurs sont supprimés. 

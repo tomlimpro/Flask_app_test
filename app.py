@@ -1,13 +1,13 @@
 from flask import Flask, render_template
-import os
 app = Flask(__name__)
 
-os.environ['FLASK_ENV'] = 'development'
+
 
 @app.route('/')
 
 @app.route('/home')
 def home_page():
+    
     return render_template('home.html')
 
 @app.route('/market')
@@ -18,8 +18,12 @@ def market_page():
         {'id': 3,'name':'Keyboard', 'barcode': '92541371','price': 150},
         {'id': 4,'name':'Mouse', 'barcode': '56541271','price': 50},
     ]
+    
     return render_template('market.html', items=items)
 
+@app.route('/playground')
+def playground_page():
+       return render_template('playground.html')
 
 """
 Permet de démarrer l'application uniquement lorsque le fichier est exécuté directement

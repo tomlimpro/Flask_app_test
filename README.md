@@ -120,6 +120,31 @@ Les fonctionnalités incluent :
 
 # MEMO MONGODB
  - [MongoDB cheatsheet](https://www.mongodb.com/developer/products/mongodb/cheat-sheet/)
+
+Dans le conteneur MongoDB, il faut insérer cette commande pour se connectec à la database
+```
+mongo
+```
+permet de sauvegarder les données d'une base de données MongoDB en utilisant un format BSON
+```
+mongodump
+```
+permet de restaurer les données d'une sauvegarde MongoDB en utilisant un format BSON.
+```
+mongorestore
+```
+permet de surveiller les performances de votre base de données MongoDB en temps réel.
+```
+mongostat
+```
+permet de exporter les données de la base de données MongoDB dans un format JSON, CSV ou TSV.
+```
+mongoexport
+```
+permet d'importer les données dans une base de données MongoDB à partir d'un fichier JSON, CSV ou TSV
+```
+mongoimport
+```
 ## Helpers
 
 **Show Databases**
