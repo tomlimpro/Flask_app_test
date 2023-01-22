@@ -1,4 +1,4 @@
-version: "3"
+version: "3.9"
 services:
   # Services pour l'application Flask
   web:
@@ -11,26 +11,35 @@ services:
     # Flask_APP à app.py point d'entrée de l'app Flask
     environment:
       - FLASK_APP=app.py
+      - FLASK_ENV=development
     # Exécute la coamnde pour lancer l'app Flask 
     command: ["flask", "run", "--host=0.0.0.0", "--reload"]
     # Permet de monter des répertoires ou des fichiers de l'hôte dans le conteneur.
+    depends_on:
+      - db
+    networks:
+      - web
     volumes:
-        - .:/app
+      - .:/app
   db:
     image: postgres:13.1-alpine
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORd: password
-      POSTGRES_DB: mydb
-    ports:
-      - "5432:5432"
+      - POSTGRES_HOST= localhost
+      - POSTGRES_USER= user
+      - POSTGRES_PASSWORD= password
+      - POSTGRES_DB= mydb
     volumes:
       - postgres-data:/var/lib/postgresql/data
+    networks:
+      - web
 volumes:
   postgres-data:
 
-# mongo-data est le nom du volume défini pour stocker les données de la bdd.
+networks:
+  web:
+    driver: bridge
+
+# postgres-data est le nom du volume défini pour stocker les données de la bdd.
 # On peut stocker les données en dehors du conteneurs, de sorte qu'elles ne soient pas supprimées lorsque les conteneurs sont supprimés. 
 # permet de conserver les données même si le conteneur ou l'image est mis à jour ou delete.
 
-# Le volume 'mongo-data' est monté dans le conteneur MongoDB à l'emplacement '/data/db' qui est l'emplacement où mongodb stocke les données par défaut. 
